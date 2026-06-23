@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BlogDetailsCard from '@/components/modules/Blogs/BlogDetailsCard';
 import { getBlogById } from '@/services/PostService';
+import { title } from 'process';
 
 export const generateStaticParams = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`);
@@ -10,6 +11,16 @@ export const generateStaticParams = async () => {
     blogId: String(blog.id),
   }));
 };
+
+export const generateMetadata = async ({params}: {params: Promise<{blogId: string}>}) => {
+    const {blogId} = await params;
+    const blog = await getBlogById(blogId);
+
+    return {
+        title: blog?.title,
+        description: blog?.content
+    }
+}
 
 const BlogDetailsPage = async ({params}: {params: Promise<{blogId: string}>}) => {
     const {blogId} = await params;
