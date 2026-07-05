@@ -1,9 +1,10 @@
-import Loading from '@/components/ui/Loading';
-import React from 'react';
+import Loading from "@/components/ui/Loading";
 
 const BlogsLoadingPage = () => {
     return (
-        <Loading />
+        <div className="py-24">
+            <Loading />
+        </div>
     );
 };
 
