@@ -10,6 +10,7 @@ const DashboardHomePage = async () => {
   // console.log(session);
 
   const session = await getUserSession();
+  console.log("Session Data: ", session)
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-6 w-full">

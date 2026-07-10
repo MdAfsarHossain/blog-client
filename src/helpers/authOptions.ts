@@ -8,6 +8,7 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         }),
         CredentialsProvider({
+            name: "Credentials",
             credentials: {
                 email: { label: "Email", type: "email", placeholder: "afsar@gmail.com" },
                 password: { label: "Password", type: "password", placeholder: "123456" }
@@ -19,7 +20,7 @@ export const authOptions = {
                 }
  
                 try {
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -62,6 +63,13 @@ export const authOptions = {
             if(user) {
                 token.id = user.id;
             }
+            return token
+        },
+        async session({session, token}: {session: any, token: any}) {
+            if(session?.user) {
+                session.user.id = token.id;
+            }
+            return session
         }
     },
     secret: process.env.AUTH_SECRET,

@@ -38,15 +38,27 @@ export default function LoginForm() {
     // const onSubmit = (values: LoginFormValues) => {
     const onSubmit = async (values: FieldValues) => {
         // console.log("Login submitted:", values);
+        //  CUSTOM LOGIN: 
+        // try {
+        //     const result = await login(values)
+        //     console.log(result)
+        //     if (result?.id) {
+        //         toast.success('Registration successful')
+        //         // router.push('/dashboard')
+        //     }
+        // } catch (error) {
+        //     console.log(error)
+        // }
+
+        console.log("Login submitted:", values);
+        // NEXT AUTH CREDENTILAS LOGIN
         try {
-            const result = await login(values)
-            console.log(result)
-            if (result?.id) {
-                toast.success('Registration successful')
-                // router.push('/dashboard')
-            }
+            signIn('credentials', {
+                ...values,
+                callbackUrl: "/dashboard"
+            })
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     };
 
